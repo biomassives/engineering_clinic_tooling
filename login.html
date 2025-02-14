@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My App</title>
+</head>
+<body>
+    <form id="loginForm">
+        <input type="email" id="loginEmail" name="email" placeholder="Email">
+        <input type="password" id="loginPassword" name="password" placeholder="Password">
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        class App {
+            constructor() {
+                this.loginForm = document.querySelector("#loginForm");
+                this.errorMessage = document.querySelector("#errorMessage");
+            }
+
+            init() {
+                this.attachEventListeners();
+            }
+
+            attachEventListeners() {
+                this.loginForm.addEventListener("submit", (e) => this.handleLogin(e));
+            }
+
+            async handleLogin(e) {
+                e.preventDefault();
+
+                const formData = new FormData(this.loginForm);
+                const email = formData.get("email");
+                const password = formData.get("password");
+
+                console.log("cred:" + email);
+                console.log("credpass" + password);
+
+                // FOR TESTING ONLY: Allow admin@admin.com / admin
+                if (email === "admin@admin.com" && password === "admin") {
+                    const user = {
+                        email: "admin@admin.com",
+                        name: "Administrator",
+                    };
+                    this.setItem("user", user);
+                    this.setAuthToken("admin_token");
+                    this.showDashboard();
+                    return;
+                }
+
+                this.displayErrorMessage("Invalid credentials");
+                console.log("Invalid credentials");
+            }
+
+            displayErrorMessage(message) {
+                console.error("Error:", message);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const app = new App();
+            app.init();
+        });
+    </script>
+</body>
+</html>

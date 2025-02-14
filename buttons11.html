@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carved Stone Icons</title>
+    <style>
+        /* Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #e3e7eb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background 0.3s ease;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background: #1e2833;
+        }
+
+        /* Menu container */
+        .menu-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        /* Stone button */
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #444;
+            cursor: pointer;
+            transition: transform 0.4s ease, text-shadow 0.3s ease;
+            position: relative;
+        }
+
+        /* Carved icon button */
+        .icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            box-shadow: inset 5px 5px 10px #b0b8c1, inset -5px -5px 10px #ffffff;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            background: linear-gradient(135deg, #cad4df, #9aa8b8);
+            color: #666;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode .icon {
+            background: linear-gradient(135deg, #527184, #3a5666);
+            box-shadow: inset 5px 5px 10px #2c3d4b, inset -5px -5px 10px #6f8fa0;
+            color: #b0c4de;
+        }
+
+        /* Hover effect: shifts shadow to create depth */
+        .menu-item:hover .icon {
+            box-shadow: inset 2px 2px 5px #b0b8c1, inset -2px -2px 5px #ffffff, 2px 2px 5px rgba(0, 0, 0, 0.2);
+            transform: translateY(-4px);
+            color: #333;
+        }
+
+        body.dark-mode .menu-item:hover .icon {
+            box-shadow: inset 2px 2px 5px #2c3d4b, inset -2px -2px 5px #6f8fa0, 2px 2px 5px rgba(0, 0, 0, 0.4);
+            color: #ddeaf3;
+        }
+
+        /* Text under buttons */
+        .menu-text {
+            font-weight: 600;
+            margin-top: 10px;
+            transition: color 0.3s;
+        }
+
+        .menu-item:hover .menu-text {
+            color: #1E90FF;
+        }
+
+        body.dark-mode .menu-item:hover .menu-text {
+            color: #90caf9;
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        body.dark-mode .theme-toggle {
+            background: #333;
+            color: #fff;
+            box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 600px) {
+            .menu-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle" onclick="document.body.classList.toggle('dark-mode')">
+        Toggle Dark Mode 🌙
+    </button>
+
+    <div class="menu-container">
+        <!-- Personal Profile -->
+        <a href="#" id="profileManagementLink" class="menu-item">
+            <div class="icon">
+               <svg viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 8V4c0-1.1-.9-2-2-2H7c-1.1 0-2 .9-2 2v4"/>
+  <path d="M12 8v4c0 1.1.9 2 2 2h3c1.1 0 2-.9 2-2V8"/>
+  <path d="M5 12v4c0 1.1.9 2 2 2h3c1.1 0 2-.9 2-2v-4"/>
+  <path d="M19 12v4c0 1.1-.9 2-2 2h-3c-1.1 0-2-.9-2-2v-4"/>
+  <path d="M8 16v4c0 1.1.9 2 2 2h3c1.1 0 2-.9 2-2v-4"/>
+</svg> 
+            </div>
+            <div class="menu-text">Onboarding</div>
+        </a>
+
+        <!-- Community Forum -->
+        <a href="#" id="forumLink" class="menu-item">
+            <div class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="4" width="18" height="16" rx="2" ry="2" />
+  <line x1="3" y1="8" x2="21" y2="8" />
+  <line x1="7" y1="4" x2="7" y2="8" />
+  <line x1="12" y1="4" x2="12" y2="8" />
+  <line x1="17" y1="4" x2="17" y2="8" />
+  <line x1="7" y1="12" x2="7" y2="20" />
+  <line x1="17" y1="12" x2="17" y2="20" />
+</svg>
+            </div>
+            <div class="menu-text">Solutions Library</div>
+        </a>
+
+        <!-- Projects' Clinic -->
+        <a href="#" id="clinicsLink" class="menu-item">
+            <div class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="5" r="3"/>
+  <path d="M5 20 H 19 V 14 A 4 4 0 0 0 15 10 H 9 A 4 4 0 0 0 5 14 V 20 Z" />
+  <polyline points="16 2 22 2 22 8"/>
+  <polyline points="22 2 16 8 22 8"/>
+</svg>
+            </div>
+            <div class="menu-text">Trainer Training</div>
+        </a>
+
+        <!-- Project Profile -->
+        <a href="#" id="projectsLink" class="menu-item">
+            <div class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M4 11c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2H4z"/>
+  <path d="M14 11c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2h-6z"/>
+  <path d="M4 17v2c0 1.1.9 2 2 2h4l4-4-4-4H6c-1.1 0-2 .9-2 2v2z"/>
+  <path d="M14 17v2c0 1.1.9 2 2 2h4l4-4-4-4h-4c-1.1 0-2 .9-2 2v2z"/>
+  <path d="m12 11 2 2"/>
+  <path d="m12 17 2-2"/>
+</svg>
+            </div>
+            <div class="menu-text">Metrics and Feedback</div>
+        </a>
+        <!-- Project Profile -->
+        <a href="#" id="projectsLink" class="menu-item">
+            <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="8"/>
+  <path d="M12 8v4l2 2"/>
+  <path d="M2 12h2"/>
+  <path d="M20 12h2"/>
+  <path d="M12 2v2"/>
+  <path d="M12 20v2"/>
+  <path d="m19 15-1 2 1 2"/>
+</svg>
+
+
+		</div>
+            <div class="menu-text"> Engineering Clinics & Events</div>
+        </a>
+    </div>
+
+    <script>
+        // Check for user preference and apply dark mode if preferred
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+
+</body>
+</html>

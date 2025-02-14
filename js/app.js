@@ -39,6 +39,8 @@ class App {
         this.errorMessage = document.querySelector("#errorMessage");
     
         this.profileManager = null; // Initialize as null
+        this.workshopComponent = null; // for projects' clinic
+        this.forumComponent = null;
 
         this.storageService = new StorageService();
         this.forumService = new ForumService(this.storageService); // Instantiate ForumService
@@ -53,6 +55,16 @@ class App {
             await this.forumService.initialize(); // Call ForumService.initialize()
             this.attachEventListeners();
             this.initializeUI();
+
+
+            // Example: Seed a post for testing
+            await this.forumService.createPost({
+                title: "Test Post",
+                content: "This is a test.",
+                author: "Tester",
+                category: "TEST" // Note: even if this category is not predefined, it will be stored
+            });
+
         } catch (error) {
             console.error('Initialization error:', error);
         }
@@ -73,8 +85,44 @@ class App {
         this.initThemeToggle();
         // Language selector setup
         this.initLanguageSelector();
+
+        
     }
 
+    showClinics(e) {
+        e.preventDefault();
+        console.log("Projects' Clinic link clicked");
+    
+        this.hideAllSections(); // Hide other sections
+    
+        const clinicsContainer = document.getElementById('clinicsContainer');
+        if (!clinicsContainer) {
+            console.error("Clinics container not found!");
+            return;
+        }
+        clinicsContainer.style.display = 'block'; // Show the clinics container
+    
+        // Initialize WorkshopComponent in clinicsContainer if needed
+        if (!this.workshopComponent) {
+            this.workshopComponent = new WorkshopComponent('clinicsContainer');
+        } else {
+            // Optionally refresh the view
+            this.workshopComponent.init();
+        }
+    }
+    
+      hideAllSections() {
+        // Hide all content sections (example implementation)
+        const sections = document.querySelectorAll('.view-section');
+        sections.forEach(section => section.style.display = 'none');
+        // Alternatively, explicitly hide each container:
+        // document.getElementById('dashboardView').style.display = 'none';
+        // document.getElementById('profileManagementContainer').style.display = 'none';
+        // document.getElementById('forumContainer').style.display = 'none';
+        // document.getElementById('clinicsContainer').style.display = 'none';
+        // document.getElementById('projectsContainer').style.display = 'none';
+      }
+    
     initMobileMenu() {
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
@@ -113,62 +161,54 @@ class App {
     showProfileManagement(e) {
         e.preventDefault();
         console.log("Manage Profile link clicked");
-    
+
         // Get the profile management container
         const profileManagementContainer = document.getElementById('profileManagementContainer');
-    
+
         if (!profileManagementContainer) {
             console.error("Profile management container not found!");
             return;
         }
-    
-        console.log("profileManagementContainer found:", profileManagementContainer);
-    
         // Initialize the ProfileManager if it doesn't already exist
         if (!this.profileManager) {
             try {
-                console.log("Initializing ProfileManager..."); // Add this line
                 this.profileManager = new ProfileManager('profileManagementContainer');
-                console.log("ProfileManager initialized successfully");
             } catch (error) {
                 console.error("Error initializing ProfileManager:", error);
                 return;
             }
         }
-    
-        // Show the profile management container
         profileManagementContainer.style.display = 'block';
-        console.log("profileManagementContainer display set to block");
-    
-        // Debugging: Check if the container has any content
-        console.log("profileManagementContainer innerHTML:", profileManagementContainer.innerHTML);
-    
-        // Hide other sections if necessary
         this.hideOtherSections('profileManagementContainer');
-        console.log("hideOtherSections called"); // Add this line
     }
-    
-    showForum(e) {
-        e.preventDefault();
-        console.log("Community Forum link clicked");
-    
-        // Get the forum container
+
+
+    async renderForum() {
         const forumContainer = document.getElementById('forumContainer');
-    
         if (!forumContainer) {
             console.error("Forum container not found!");
             return;
         }
     
-        console.log("forumContainer found:", forumContainer);
-    
-        // Add your logic to display the community forum section
-        forumContainer.style.display = 'block';
-        console.log("forumContainer display set to block");
-    
-        // Hide other sections if necessary
-        this.hideOtherSections('forumContainer');
-        console.log("hideOtherSections called"); // Add this line
+        try {
+            const posts = await this.forumService.getPosts(); // Get all posts
+            let html = '<ul>';
+            posts.forEach(post => {
+                html += `
+                    <li>
+                        <h3>${post.title}</h3>
+                        <p>${post.content}</p>
+                        <p>Author: ${post.author}</p>
+                        <p>Category: ${post.category}</p>
+                    </li>
+                `;
+            });
+            html += '</ul>';
+            forumContainer.innerHTML = html;
+        } catch (error) {
+            console.error("Error rendering forum:", error);
+            forumContainer.innerHTML = '<p>Error loading forum posts.</p>';
+        }
     }
 
 
@@ -238,8 +278,11 @@ class App {
     showDashboard() {
         const loginView = document.getElementById('loginView');
         const dashboardView = document.getElementById('dashboardView');
-        if (loginView) loginView.style.display = 'none';
+        const sidebar = document.getElementById('sidebarView');
+
+        if (loginView) loginView.style.display = "none"
         if (dashboardView) dashboardView.style.display = 'block';
+        if (sidebar) sidebar.style.display = 'block';
     }
 
     attachEventListeners() {
@@ -248,21 +291,20 @@ class App {
         // Add event listeners for the navigation links
         const profileManagementLink = document.getElementById('profileManagementLink');
         const forumLink = document.getElementById('forumLink');
+        if (forumLink) {
+          forumLink.addEventListener('click', (e) => this.showForum(e));
+        }
         const clinicsLink = document.getElementById('clinicsLink');
         const projectsLink = document.getElementById('projectsLink');
-
         if (profileManagementLink) {
             profileManagementLink.addEventListener('click', (e) => this.showProfileManagement(e));
         }
-
         if (forumLink) {
             forumLink.addEventListener('click', (e) => this.showForum(e));
         }
-
         if (clinicsLink) {
             clinicsLink.addEventListener('click', (e) => this.showClinics(e));
         }
-
         if (projectsLink) {
             projectsLink.addEventListener('click', (e) => this.showProjects(e));
         }
@@ -323,29 +365,35 @@ class App {
             console.error('Login failed:', error);
         }
     
-
     displayErrorMessage(message) {
         // Your error message display logic here
         console.error("Error:", message); // Example: Log the error to the console
     }
 
-    showProfileManagement(e) {
-        e.preventDefault();
-        console.log("Manage Profile link clicked");
-        // Add your logic to display the profile management section
-    }
-    
     showForum(e) {
         e.preventDefault();
         console.log("Community Forum link clicked");
-        // Add your logic to display the community forum section
+    
+        this.hideAllSections(); // Hide other sections
+        const forumContainer = document.getElementById('forumContainer');
+        if (!forumContainer) {
+            console.error("Forum container not found!");
+            return;
+        }
+        forumContainer.style.display = 'block'; // Show the forum container
+    
+        // Instantiate ForumComponent if not already done
+        if (!this.forumComponent) {
+            this.forumComponent = new ForumComponent('forumContainer');
+        } else {
+            // Optionally, reinitialize to refresh data/view
+            this.forumComponent.init();
+        }
+
+        //this.renderForum(); // Render the forum posts
     }
     
-    showClinics(e) {
-        e.preventDefault();
-        console.log("Projects' Clinic link clicked");
-        // Add your logic to display the projects' clinic section
-    }
+
     
     showProjects(e) {
         e.preventDefault();

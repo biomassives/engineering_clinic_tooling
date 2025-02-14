@@ -1,0 +1,121 @@
+/* assets/css/forum.css */
+.forum-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .forum-header {
+    margin-bottom: 2rem;
+  }
+  
+  .tab-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+  }
+  
+  .tab-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: none;
+    color: #6b7280;
+    cursor: pointer;
+    font-weight: 500;
+    position: relative;
+  }
+  
+  .tab-btn.active {
+    color: #2563eb;
+  }
+  
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #2563eb;
+  }
+  
+  .post {
+    transition: transform 0.2s;
+  }
+  
+  .post:hover {
+    transform: translateY(-2px);
+  }
+  
+  .like-btn {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.25rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .like-btn:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+  }
+  
+  .reply {
+    border-left: 2px solid #e5e7eb;
+    margin-left: 1rem;
+    padding-left: 1rem;
+  }
+  
+  .reply-form input {
+    transition: border-color 0.2s;
+  }
+  
+  .reply-form input:focus {
+    border-color: #2563eb;
+    outline: none;
+  }
+  
+  /* RTL Support */
+  [dir="rtl"] .reply {
+    border-left: none;
+    border-right: 2px solid #e5e7eb;
+    margin-left: 0;
+    margin-right: 1rem;
+    padding-left: 0;
+    padding-right: 1rem;
+  }
+  
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .forum-container {
+      color: #e5e7eb;
+    }
+    
+    .post {
+      background: #1f2937;
+    }
+    
+    .reply {
+      background: #374151;
+    }
+    
+    .tab-btn {
+      color: #9ca3af;
+    }
+    
+    .tab-btn.active {
+      color: #60a5fa;
+    }
+    
+    .like-btn {
+      background: #374151;
+      border-color: #4b5563;
+    }
+    
+    .like-btn:hover {
+      background: #4b5563;
+    }
+  }

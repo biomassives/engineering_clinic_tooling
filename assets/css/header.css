@@ -1,0 +1,344 @@
+:root[data-theme="light"] {
+    --header-bg: #ffffff;
+    --header-text: #333333;
+    --header-border: #e0e0e0;
+}
+
+:root[data-theme="dark"] {
+    --header-bg: #1a1a1a;
+    --header-text: #ffffff;
+    --header-border: #333333;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--header-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.app-logo {
+    height: 32px;
+    width: auto;
+}
+
+
+/* Header layout */
+.max-w-7xl {
+    max-width: 80rem;
+    margin: 0 auto;
+}
+
+/* Ensure items spread across full width */
+.flex.justify-between {
+    width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hidden.md\:flex {
+        display: none;
+    }
+}
+
+@media (min-width: 769px) {
+    .md\:hidden {
+        display: none;
+    }
+}
+
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes rotate-reverse {
+    100% { transform: rotate(-360deg); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-15deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* Dark mode adjustments */
+.dark .text-green-500 {
+    color: #4ade80;
+}
+
+.dark .from-green-600 {
+    --tw-gradient-from: #059669;
+}
+
+.dark .to-blue-600 {
+    --tw-gradient-to: #2563eb;
+}
+
+/* Group hover effects */
+.group:hover .tool-circle {
+    animation-duration: 4s;
+}
+
+.group:hover .tool-gear {
+    animation-duration: 2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tool-circle,
+    .tool-gear,
+    .tool-wrench,
+    .tool-screwdriver,
+    .tool-arrows {
+        animation: none;
+    }
+}
+
+/* Logo animations */.tool-circle {
+    stroke-dasharray: 8 8;
+    animation: rotate 12s linear infinite; /* Slowed from 8s to 12s */
+}
+
+
+/* Slower, more subtle animations */
+.tool-circle {
+    stroke-dasharray: 4 4;
+    animation: rotate 16s linear infinite;
+}
+
+.tool-gear {
+    animation: rotate-reverse 12s linear infinite;
+}
+
+
+.tool-wrench {
+    animation: bounce 4s ease-in-out infinite; /* Slowed from 2s to 4s */
+}
+
+.tool-screwdriver {
+    animation: pulse 4s ease-in-out infinite; /* Slowed from 2s to 4s */
+}
+
+.tool-arrows {
+    animation: flash 6s ease-in-out infinite; /* Slowed from 3s to 6s */
+}
+
+/* Header spacing adjustment */
+main {
+    padding-top: 3.5rem; /* Matches header height */
+}
+
+/* Hover effects */
+.group:hover .tool-circle {
+    animation-duration: 4s;
+}
+
+.group:hover .tool-gear {
+    animation-duration: 2s;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .tool-circle, .tool-gear, .tool-wrench, .tool-screwdriver, .tool-arrows {
+        animation: none;
+    }
+}
+
+
+#profileManagementContainer {
+    width: 100%; /* Take up the full width of the main content */
+    padding: 20px; /* Add some padding for spacing */
+    border: 1px solid #ccc; /* Add a border for visual separation */
+    position: relative; /* Ensure proper positioning */
+    z-index: 1000; /* Ensure it's above other elements */
+    background-color: white; /* Ensure it's not transparent */
+}
+
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Theme Switcher */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch {
+    position: relative;
+    width: 60px;
+    height: 34px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.5rem;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Language Switcher */
+.language-switcher {
+    position: relative;
+}
+
+.lang-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--header-border);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--header-text);
+    cursor: pointer;
+}
+
+.lang-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--header-bg);
+    border: 1px solid var(--header-border);
+    border-radius: 4px;
+    min-width: 150px;
+}
+
+.language-switcher:hover .lang-dropdown {
+    display: block;
+}
+
+.lang-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: var(--header-text);
+    text-decoration: none;
+}
+
+.lang-dropdown a:hover {
+    background: rgba(0,0,0,0.1);
+}
+
+/* Auth Button */
+.auth-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background: #dc3545;
+    color: white;
+    cursor: pointer;
+}
+
+.auth-btn:hover {
+    background: #c82333;
+}
+
+[dir="rtl"] .header-right {
+    flex-direction: row-reverse;
+}
+
+/* RTL Support */
+[dir="rtl"] .space-x-4 > * + * {
+    margin-left: 0;
+    margin-right: 1rem;
+}
+
+[dir="rtl"] .mr-2 {
+    margin-right: 0;
+    margin-left: 0.5rem;
+}
+
+/* Mobile Menu Animation */
+#mobileMenu {
+    transition: all 0.3s ease-in-out;
+}
+
+#mobileMenu.hidden {
+    display: none;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+    #mobileMenu {
+        display: none !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .desktop-nav {
+        display: none;
+    }
+}
+
+/* Dark Mode Transitions */
+.theme-transition {
+    transition: background-color 0.3s ease-in-out,
+                color 0.3s ease-in-out,
+                border-color 0.3s ease-in-out;
+}

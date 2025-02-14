@@ -1,0 +1,41 @@
+
+
+
+
+
+/* Main styles from original file */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.dashboard-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.language-select {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: white;
+  font-size: 14px;
+}
+
+[dir="rtl"] .dashboard-controls {
+  flex-direction: row-reverse;
+}
