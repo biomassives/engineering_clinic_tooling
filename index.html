@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApproVideo Dashboard</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+    <link rel="stylesheet" href="assets/css/forum.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/profile.css">
+
+    <!-- Dependencies -->
+    <script src="assets/libs/localforage.js"></script>
+    
+  
+
+   
+
+</head>
+<body>
+
+
+
+    <header class="bg-white dark:bg-gray-800 shadow-sm fixed w-full top-0 z-50">
+            <div class="flex items-start h-12">
+                 
+                <div class="font-semibold text-green-600 dark:text-green-400"><img src="favicon.ico"> ApproVideo</div>
+    
+            </div>
+                <!-- Right side: Controls -->
+            <div class="flex items-center space-x-4">
+             
+            </div>
+                    
+            <div class="relative">
+                        <button id="languageBtn" class="inline-flex items-center space-x-1">
+                            <span id="currentLang">EN</span>
+                            <span>▼</span>
+                        </button>
+            
+
+                        <div id="languageDropdown" class="hidden absolute right-0 mt-2 w-32 py-2 bg-white dark:bg-gray-800 rounded-lg shadow-xl">
+                            <a href="#" data-lang="en" class="block px-4 py-2">English</a>
+                            <a href="#" data-lang="he" class="block px-4 py-2">עברית</a>
+                            <a href="#" data-lang="ar" class="block px-4 py-2">العربية</a>
+                        </div>
+         
+            <button id="themeToggle" class="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                🌓
+            </button>
+            <button id="userToggle" class="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                ⬇
+            </button>
+        </div>
+
+                </div>
+            </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4" id="welcomeText">
+        Welcome
+    </div>
+
+
+
+
+<!-- Add this right after the header to prevent content from going under the fixed header -->
+<div class="h-16"></div>
+    <div id="app">
+        <!-- Auth Views -->
+       <!-- Login View -->
+        <div id="loginView" class="view active">
+            <div class="container">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <p id="signIn">Sign in</p>
+                    </div>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" name="loginEmail" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" name="loginPassword" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="regView" class="view"  style="display:none;">
+            <div class="container">
+                <div class="auth-card">
+                    <div class="auth-header">
+                    
+                        <p id="newaccount">Create user</p>
+                    </div>
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Dashboard View -->
+        <div id="dashboardView" class="view" style="display:none;">
+
+            <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h2>Dashboard</h2>
+                <div class="dashboard-controls">
+                    <select id="languageSwitcher" class="language-select">
+                        <option value="en">English</option>
+                        <option value="he">עברית</option>
+                        <option value="ar">العربية</option>
+                    </select>
+
+
+
+
+                                    <!-- Mobile menu button - Add this if missing -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" 
+                            class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-300"
+                            aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Hamburger icon -->
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+
+                    <button id="logoutBtn">Logout</button>
+
+                </div>
+
+    <!-- Mobile menu panel - Add this if missing -->
+    <div id="mobileMenu" class="hidden md:hidden">
+        <!-- ...mobile menu content... -->
+    </div>
+
+
+            </div>
+                <div class="sidebar">
+                    <h3>Menu</h3>
+                    <ul>
+                        <li><a href="#" id="profileManagementLink">Manage Profile</a></li>
+                        <li><a href="#" id="forumLink">Community Forum</a></li>
+                        <li><a href="#" id="clinicsLink">Projects' Clinic</a></li>
+                        <li><a href="#" id="projectsLink">Project Profile</a></li>
+                        
+                    </ul>
+                </div>
+                <div class="main-content">
+                    <div id="profile-manager-root"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="module" src="js/app.js"></script>
+    
+
+
+</body>
+</html>
+
